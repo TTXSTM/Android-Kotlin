@@ -6,6 +6,8 @@ import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
 
+
+
     companion object : Comparator<Weather> {
         private val EXTRA_ACTIVITYNAME = MainActivity::class.simpleName
 
@@ -21,6 +23,8 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
