@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Movie App</string>
+    <string name="movie_name">Эмма</string>
+    <string name="movie_year">2020</string>
+    <string name="movie_rating">6.9</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Favorites</string>
+    <string name="title_notifications">Ratings</string>
+</resources>
