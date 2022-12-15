@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movie_name_text_size">15sp</dimen>
+    <dimen name="img_size_width">300px</dimen>
+    <dimen name="img_size_height">450px</dimen>
+    <dimen name="layout_width">300px</dimen>
+    <dimen name="layout_margin">20px</dimen>
+</resources>
