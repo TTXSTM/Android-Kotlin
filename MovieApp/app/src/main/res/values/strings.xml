@@ -6,4 +6,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Favorites</string>
     <string name="title_notifications">Ratings</string>
+    <string name="movie_title">Movie title</string>
+    <string name="default_imdb_rating">6.9</string>
 </resources>

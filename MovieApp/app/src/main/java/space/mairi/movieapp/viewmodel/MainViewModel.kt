@@ -13,9 +13,11 @@ class MainViewModel(
 
         fun getLiveData() = liveDataToObserver
 
-        fun getMovie() = getDataFromLocalSource()
+        fun getMovie() = getDataFromLocalSource(true)
 
-        private fun getDataFromLocalSource(){
+        fun getMovieFromLocalStorageNowPlaying() = getDataFromLocalSource(true)
+
+        private fun getDataFromLocalSource(isNowPlaying : Boolean){
 
             liveDataToObserver.value = AppState.Loading
 
@@ -23,7 +25,7 @@ class MainViewModel(
                 sleep(2000)
 
                 liveDataToObserver.postValue(
-                    AppState.Success(repositoryImpl.getMovieFomLocalStorage()))
+                    AppState.Success(repositoryImpl.getMovieFromLocalStorageNowPlaying()))
 
             }.start()
         }
