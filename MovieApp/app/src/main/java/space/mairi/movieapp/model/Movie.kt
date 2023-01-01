@@ -7,7 +7,9 @@ import kotlinx.android.parcel.Parcelize
 data class Movie(
     val name: MovieInf = getDefualtMovie(),
     val year: Int= 0,
-    val rating: Double = 0.0
+    val rating: Double = 0.0,
+    val lang : String = "ru",
+    val stat : String = "InTheaters"
 ) : Parcelable
 
 fun getDefualtMovie() = MovieInf("Эмма", "Movie", 124, "комедия, мелодрама", 10000000, 26404660, "12-02-2020")
