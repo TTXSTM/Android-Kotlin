@@ -5,13 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import space.mairi.movieapp.databinding.FragmentDetailsBinding
 import space.mairi.movieapp.model.Movie
+import space.mairi.movieapp.model.MovieDTO
 
 class DetailsFragment : Fragment(){
     private var _binding :  FragmentDetailsBinding? = null
-
     private val binding get() = _binding!!
+
+    private lateinit var moviBundle : Movie
+
+    private val onLoaderListener : MovieLoader.MovieLoaderListener =
+        object : MovieLoader.MovieLoaderListener {
+            override fun onLoaded(movieDTO: MovieDTO) {
+                displayMovie(movieDTO)
+            }
+
+            override fun onFailed(throwable: Throwable) {
+                Snackbar.make(binding.mainView, "Loaded Failed", Snackbar.LENGTH_LONG)
+            }
+        }
 
     companion object{
         const val BUNDLE_EXTRA = "movie"
@@ -35,38 +49,33 @@ class DetailsFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val movie = arguments?.getParcelable<Movie>(BUNDLE_EXTRA)?.let { movie ->
-            movie.name.also {
-                with(binding){
-                    binding.movieTime.text = String.format(
-                        "%s min",
-                        it.min.toString()
-                    )
+        moviBundle = arguments?.getParcelable<Movie>(BUNDLE_EXTRA) ?: Movie()
 
-                    binding.movieBudget.text = String.format(
-                        "Budget: %s $",
-                        it.budget.toString()
-                    )
-
-                    binding.movieRevenue.text = String.format(
-                        "Revenue: %s $",
-                        it.revenue.toString()
-                    )
-                    binding.movieReleseDate.text = String.format(
-                        "Relese date: (%s)",
-                        it.date
-                    )
-
-                    binding.movieName.text = it.movie
-                    binding.movieGenre.text = it.genre
-                    binding.movieDescription.text = it.descriptor
-                }
-            }
+        with(binding) {
+            mainView.visibility = View.GONE
+            loadingLayout.visibility = View.VISIBLE
         }
+
+        val loader = MovieLoader(onLoaderListener, moviBundle.lang, moviBundle.stat)
+        loader.loadMovie()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    ///// !
+    private fun displayMovie(movieDTO: MovieDTO) {
+        with(binding) {
+            mainView.visibility = View.VISIBLE
+            loadingLayout.visibility = View.GONE
+
+            movieName.text = movieDTO.items?.title
+            movieReleseDate.text = movieDTO.items?.releaseState
+            movieTime.text = movieDTO.items?.runtimeStr
+            movieDescription.text = movieDTO.items?.plot
+            movieOriginalName.text = movieDTO.items?.fullTitle
+        }
     }
 }
