@@ -6,18 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.get
 import com.google.android.material.snackbar.Snackbar
 import space.mairi.movieapp.R
 import space.mairi.movieapp.databinding.FragmentMainBinding
 import space.mairi.movieapp.model.Movie
+import space.mairi.movieapp.model.MovieDTO
 import space.mairi.movieapp.view.MainFragmentAdapter
 import space.mairi.movieapp.view.details.DetailsFragment
+import space.mairi.movieapp.view.details.MovieLoader
 import space.mairi.movieapp.viewmodel.AppState
-import java.util.Random
-import kotlin.random.Random.Default.nextInt
 
 class MainFragment : Fragment() {
     private var _binding : FragmentMainBinding? = null
@@ -35,6 +33,8 @@ class MainFragment : Fragment() {
 
     private val isDataSetNowPlaying : Boolean = true
 
+
+
     private val adapter = MainFragmentAdapter(object : MainFragmentAdapter.OnItemClickListener{
         override fun onItemClick(movie: Movie) {
             activity?.supportFragmentManager?.apply {
@@ -45,6 +45,8 @@ class MainFragment : Fragment() {
                     }))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
+
+
             }
         }
     })
@@ -105,7 +107,7 @@ class MainFragment : Fragment() {
                 binding.mainFragmentRecylerView.showSnackbar(
                     getString(R.string.error),
                     getString(R.string.reload),
-                    { viewModel.getMovieFromLocalStorageNowPlaying() }
+                    { viewModel.getMovieFromLocalStorageNowPlaying()}
                 )
             }
         }

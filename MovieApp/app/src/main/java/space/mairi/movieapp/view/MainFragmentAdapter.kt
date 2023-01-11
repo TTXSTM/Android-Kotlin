@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import space.mairi.movieapp.R
 import space.mairi.movieapp.model.Movie
-import space.mairi.movieapp.ui.main.MainFragment
+import space.mairi.movieapp.model.MovieDTO
 
 
 class MainFragmentAdapter(private val onItemClickListener: OnItemClickListener?) :
@@ -18,7 +18,7 @@ class MainFragmentAdapter(private val onItemClickListener: OnItemClickListener?)
     interface OnItemClickListener {
         fun onItemClick(movie: Movie)
     }
-    fun setMovie(data : List<Movie>) {
+    fun setMovie(data: List<Movie>) {
         movieData = data
         notifyDataSetChanged()
     }
