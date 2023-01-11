@@ -2,8 +2,10 @@ package space.mairi.movieapp.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import space.mairi.movieapp.model.MovieDTO
 import space.mairi.movieapp.model.Repository
 import space.mairi.movieapp.model.RepositoryImpl
+import space.mairi.movieapp.view.details.MovieLoader
 import space.mairi.movieapp.viewmodel.AppState
 import java.lang.Thread.sleep
 
@@ -14,6 +16,7 @@ class MainViewModel(
         fun getLiveData() = liveDataToObserver
 
         fun getMovie() = getDataFromLocalSource(true)
+
 
         fun getMovieFromLocalStorageNowPlaying() = getDataFromLocalSource(true)
 

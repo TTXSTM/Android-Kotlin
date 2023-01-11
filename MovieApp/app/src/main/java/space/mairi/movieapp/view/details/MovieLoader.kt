@@ -19,8 +19,7 @@ import javax.net.ssl.HttpsURLConnection
 
 class MovieLoader (
     private val listener : MovieLoaderListener,
-    private val lang : String,
-    private val stat : String
+    private val id : String
 ) {
     interface MovieLoaderListener {
         fun onLoaded(movieDTO: MovieDTO)
@@ -31,7 +30,7 @@ class MovieLoader (
     fun loadMovie() =
         try {
             val uri =
-                URL("https://imdb-api.com/ru/API/InTheaters/${BuildConfig.MOVIE_API_KEY}")
+                URL("https://imdb-api.com/en/API/Title/${BuildConfig.MOVIE_API_KEY}/${id}/FullActor")
 
             val handler = Handler()
 
@@ -53,6 +52,8 @@ class MovieLoader (
 
                     handler.post {
                         listener.onLoaded(movieDTO)
+                    }.apply {
+                        println(listOf(movieDTO))
                     }
 
                 } catch (e: Exception) {

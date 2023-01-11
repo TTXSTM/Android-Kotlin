@@ -41,6 +41,7 @@ class DetailsFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
@@ -56,7 +57,7 @@ class DetailsFragment : Fragment(){
             loadingLayout.visibility = View.VISIBLE
         }
 
-        val loader = MovieLoader(onLoaderListener, moviBundle.lang, moviBundle.stat)
+        val loader = MovieLoader(onLoaderListener, moviBundle.name.id)
         loader.loadMovie()
     }
 
@@ -72,8 +73,8 @@ class DetailsFragment : Fragment(){
             loadingLayout.visibility = View.GONE
 
             movieName.text = movieDTO.items?.title
-            movieReleseDate.text = movieDTO.items?.releaseState
-            movieTime.text = movieDTO.items?.runtimeStr
+            movieReleseDate.text = movieDTO.items?.releaseDate
+            movieTime.text = movieDTO.items?.runtimeMins
             movieDescription.text = movieDTO.items?.plot
             movieOriginalName.text = movieDTO.items?.fullTitle
         }
