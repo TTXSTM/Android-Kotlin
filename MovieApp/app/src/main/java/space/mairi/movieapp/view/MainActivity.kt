@@ -1,13 +1,19 @@
 package space.mairi.movieapp
 
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import space.mairi.movieapp.databinding.ActivityMainBinding
 import space.mairi.movieapp.ui.main.MainFragment
+import space.mairi.movieapp.view.MainBroadcastReceiver
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+
+    private val receiver = MainBroadcastReceiver()
 
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +27,15 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
+
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        unregisterReceiver(receiver)
+    }
+
+
 }
