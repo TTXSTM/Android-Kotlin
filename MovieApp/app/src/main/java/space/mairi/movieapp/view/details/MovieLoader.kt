@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import space.mairi.movieapp.BuildConfig
+import space.mairi.movieapp.model.ItemDTO
 import space.mairi.movieapp.model.Movie
 import space.mairi.movieapp.model.MovieDTO
 import java.io.BufferedReader
@@ -52,8 +53,6 @@ class MovieLoader (
 
                     handler.post {
                         listener.onLoaded(movieDTO)
-                    }.apply {
-                        println(listOf(movieDTO))
                     }
 
                 } catch (e: Exception) {

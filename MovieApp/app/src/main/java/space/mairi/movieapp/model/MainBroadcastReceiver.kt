@@ -1,4 +1,4 @@
-package space.mairi.movieapp.view
+package space.mairi.movieapp.model
 
 import android.content.BroadcastReceiver
 import android.content.Context
