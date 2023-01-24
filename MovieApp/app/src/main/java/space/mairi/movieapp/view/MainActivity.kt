@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import space.mairi.movieapp.databinding.ActivityMainBinding
+import space.mairi.movieapp.model.MainBroadcastReceiver
 import space.mairi.movieapp.ui.main.MainFragment
-import space.mairi.movieapp.view.MainBroadcastReceiver
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
         unregisterReceiver(receiver)
     }
+
+
 
 
 }

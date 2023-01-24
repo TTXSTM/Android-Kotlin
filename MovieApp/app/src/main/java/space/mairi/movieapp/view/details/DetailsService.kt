@@ -19,6 +19,9 @@ import java.util.stream.Collectors
 const val ID_EXTRA = "ID"
 const val MOVIE_EXTRA = "MOVIE"
 
+private const val REQUEST_GET = "GET"
+private const val REQUEST_TIMEOUT = 10000
+
 class DetailsService (name : String = "DetailsService") : IntentService(name){
 
     private val broadcastIntent = Intent(DETAILS_INTENT_FILTER)
@@ -49,6 +52,10 @@ class DetailsService (name : String = "DetailsService") : IntentService(name){
             try {
                 urlConnection = uri.openConnection() as HttpURLConnection
 
+                urlConnection.apply {
+                    requestMethod = REQUEST_GET
+                    readTimeout = REQUEST_TIMEOUT
+                }
 
                 val movieDTO : MovieDTO =
                     Gson().fromJson(
