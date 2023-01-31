@@ -2,16 +2,19 @@ package space.mairi.application_architecture.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import space.mairi.application_architecture.app.App.Companion.getHistoryDao
+import space.mairi.application_architecture.app.AppState
 
 
-import space.mairi.application_architecture.model.RemoteDataSource
+import space.mairi.application_architecture.repository.RemoteDataSource
+import space.mairi.application_architecture.model.Weather
 import space.mairi.application_architecture.model.WeatherDTO
-import space.mairi.application_architecture.model.repository.DetailsRepository
-import space.mairi.application_architecture.model.repository.DetailsRepositoryImpl
+import space.mairi.application_architecture.repository.DetailsRepository
+import space.mairi.application_architecture.repository.DetailsRepositoryImpl
+import space.mairi.application_architecture.repository.LocalRepositoryImpl
 import space.mairi.application_architecture.utils.convertDtoToModel
 
 
@@ -21,7 +24,8 @@ private const val CORRUPTED_DATA = "Неполные данные"
 
 class DetailsViewModel(
     val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val detailsRepositoryIMPL: DetailsRepository = DetailsRepositoryImpl(RemoteDataSource())
+    private val detailsRepositoryIMPL: DetailsRepository = DetailsRepositoryImpl(RemoteDataSource()),
+    private val historyResponseImpl : LocalRepositoryImpl = LocalRepositoryImpl(getHistoryDao())
 ) : ViewModel(){
 
     private val callback = object : Callback<WeatherDTO> {
@@ -58,4 +62,7 @@ class DetailsViewModel(
         detailsRepositoryIMPL.getWeatherDetailsFromServer(lat, lon, callback)
     }
 
+    fun saveCityToDB(weather: Weather) {
+        historyResponseImpl.saveEntity(weather)
+    }
 }

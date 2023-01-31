@@ -30,7 +30,6 @@ class DetailsService (name : String = "DetailService") : IntentService(name) {
 
     override fun onHandleIntent(p0: Intent?) {
 
-        Log.d("TAG", "onHandleIntent")
         p0?.let {
             val lat = p0.getDoubleExtra(LATITUDE_EXTRA, 0.0)
             val lon = p0.getDoubleExtra(LONGITUDE_EXTRA, 0.0)

@@ -1,34 +1,19 @@
 package space.mairi.application_architecture.view.details
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.util.rangeTo
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import okhttp3.*
-import space.mairi.application_architecture.BuildConfig
 import space.mairi.application_architecture.R
 import space.mairi.application_architecture.databinding.FragmentDetailsBinding
-import space.mairi.application_architecture.model.FactDTO
+import space.mairi.application_architecture.model.City
 import space.mairi.application_architecture.model.Weather
-import space.mairi.application_architecture.model.WeatherDTO
 import space.mairi.application_architecture.utils.showSnackBar
-import space.mairi.application_architecture.viewmodel.AppState
+import space.mairi.application_architecture.app.AppState
 import space.mairi.application_architecture.viewmodel.DetailsViewModel
-import java.io.IOException
 
 const val DETAILS_INTENT_FILTER = "DETAILS INTENT FILTER"
 
@@ -87,9 +72,9 @@ class DetailsFragment : Fragment() {
 
         weatherBundle = arguments?.getParcelable<Weather>(BUNDLE_EXTRA) ?: Weather()
 
-        viewModel.detailsLiveData.observe(viewLifecycleOwner, Observer {
-            renderData(it)
-        })
+
+
+        viewModel.detailsLiveData.observe(viewLifecycleOwner, { renderData(it) })
 
         requestWeather()
     }
@@ -130,6 +115,9 @@ class DetailsFragment : Fragment() {
         with(binding) {
             val city = weatherBundle.city
             cityName.text = city.city
+
+            saveCity(city, weather)
+
             cityCoordinates.text = String.format(
                 getString(R.string.city_coordinates),
                 city.lat.toString(),
@@ -151,5 +139,16 @@ class DetailsFragment : Fragment() {
         super.onDestroyView()
 
         _binding = null
+    }
+
+    private fun saveCity(city: City, weather: Weather) {
+        viewModel.saveCityToDB(
+            Weather(
+                city,
+                weather.temperature,
+                weather.feelsLike,
+                weather.condition
+            )
+        )
     }
 }
