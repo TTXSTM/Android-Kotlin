@@ -1,15 +1,16 @@
 package space.mairi.application_architecture.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import space.mairi.application_architecture.model.Repository
-import space.mairi.application_architecture.model.RepositoryImpl
+import space.mairi.application_architecture.app.AppState
+import space.mairi.application_architecture.repository.MainRepository
+import space.mairi.application_architecture.repository.MainRepositoryImpl
 import java.lang.Thread.sleep
 
 class MainViewModel(
     private val liveDataToObserve : MutableLiveData<AppState> = MutableLiveData(),
-    private val repositoryImpl : Repository = RepositoryImpl()) : ViewModel() {
+    private val repositoryImpl : MainRepository = MainRepositoryImpl()
+) : ViewModel() {
 
     fun getLiveData() = liveDataToObserve
 
@@ -24,7 +25,8 @@ class MainViewModel(
         Thread{
             sleep(2000)
 
-            liveDataToObserve.postValue(AppState.Success(
+            liveDataToObserve.postValue(
+                AppState.Success(
                     if(isRus){
                         repositoryImpl.getWeatherFomLocalStorageRus()
                     }else{

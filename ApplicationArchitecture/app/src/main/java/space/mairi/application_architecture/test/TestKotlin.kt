@@ -1,10 +1,7 @@
 package space.mairi.application_architecture.test
 
-import android.app.Person
-import android.provider.ContactsContract
 import android.util.Log
 import space.mairi.application_architecture.model.Weather
-import space.mairi.application_architecture.viewmodel.AppState
 import java.text.SimpleDateFormat
 import java.util.*
 
