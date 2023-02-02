@@ -9,8 +9,9 @@ import android.view.MenuItem
 import space.mairi.application_architecture.R
 import space.mairi.application_architecture.databinding.MainActivityBinding
 import space.mairi.application_architecture.test.threads.ThreadsFragment
+import space.mairi.application_architecture.view.contentprovider.ContentProviderFragment
 import space.mairi.application_architecture.view.history.HistoryFragment
-import space.mairi.application_architecture.view.main.MainFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,7 +67,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
-
+            R.id.menu_content_provider -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .add(R.id.container, ContentProviderFragment.newInstance())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
