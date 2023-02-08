@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import space.mairi.application_architecture.R
 import space.mairi.application_architecture.databinding.MainActivityBinding
 import space.mairi.application_architecture.test.threads.ThreadsFragment
@@ -34,6 +36,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         registerReceiver(receiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+
+//        //Получение токена
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+//            if (!task.isSuccessful) {
+//                return@OnCompleteListener
+//            }
+//
+//            val token = task.result
+//        })
+
     }
 
     override fun onDestroy() {

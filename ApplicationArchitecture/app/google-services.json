@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "33423696601",
+    "project_id": "weatherappnotify",
+    "storage_bucket": "weatherappnotify.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33423696601:android:db1965cac616f849f594c8",
+        "android_client_info": {
+          "package_name": "space.mairi.application_architecture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33423696601-b8g1vq5se5ju5825f6ifr9fm5cehot4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGvDkEsOCnz0-faNXA_3tUavgN9E5jcNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33423696601-b8g1vq5se5ju5825f6ifr9fm5cehot4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
