@@ -1,0 +1,87 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'space.mairi.buildflavors'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "space.mairi.buildflavors"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes.each {
+    }
+
+    signingConfigs {
+        release {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("prop.properties").newDataInputStream())
+
+            storeFile file("keystore.jks")
+            storePassword properties.getProperty("storePassword", "")
+            keyAlias 'Mairi'
+            keyPassword = properties.getProperty("keyPassword", "")
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            versionNameSuffix '-release'
+            buildConfigField "String", "TYPE", '"RELEASE"'
+        }
+
+        debug {
+            versionNameSuffix '-debug'
+            buildConfigField "String", "TYPE", '"DEBUG"'
+        }
+
+        beta {
+            initWith debug
+            versionNameSuffix '-beta'
+            buildConfigField "String", "TYPE", '"BETA"'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    flavorDimensions 'version'
+    productFlavors {
+        free {
+            dimension 'version'
+            versionNameSuffix '-free'
+        }
+        paid {
+            dimension 'version'
+            versionNameSuffix '-paid'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
