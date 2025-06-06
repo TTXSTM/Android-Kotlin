@@ -38,8 +38,9 @@ class DetailsFragment : Fragment() {
 
         val weather = arguments?.getParcelable<Weather>(BUNDLE_EXTRA)
 
-        if (weather != null){
-            binding.cityName.text = String.format(
+        if (weather != null) {
+            binding.cityName.text = weather.city.city
+            binding.cityCoordinates.text = String.format(
                 getString(R.string.city_coordinates),
                 weather.city.lat.toString(),
                 weather.city.lon.toString()
